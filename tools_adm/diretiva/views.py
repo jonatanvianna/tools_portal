@@ -29,7 +29,7 @@ def home(request):
     return render(request, 'diretiva/index.html', context)
 
 
-@login_required(login_url='/')
+#@login_required(login_url='/')
 def create(request):
     context = {'username': request.user}
     form = DiretivaForm()
@@ -58,7 +58,7 @@ def create(request):
             return render(request, template_name, context)
 
 
-@login_required(login_url='/')
+#@login_required(login_url='/')
 def update(request):
     context = {'user': request.user}
     template_name = 'diretiva/nova_diretiva.html'

@@ -21,7 +21,7 @@ def login_screen(request):
     else:
         return render(request, 'portal/login.html')
 
-@login_required
+#@login_required
 def home(request):
     return render(request, 'portal/home.html', {'username': request.user})
 
