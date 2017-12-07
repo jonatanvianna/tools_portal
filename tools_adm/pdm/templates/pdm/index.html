@@ -1,0 +1,33 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <h3 class="">Perda de Mensagem</h3>
+    <hr>
+    <div id="lista-erros">
+    </div>
+    <form action="resultado/" method="post" id="my-form">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label class="col-form-label" for="user">user:</label>
+                <input class="form-control" type="text" id="user" name="user" value="" placeholder="user">
+            </div>
+            <div class="form-group col-md-4">
+                <label class="col-form-label" for="idperm">ID Perm: </label>
+                <input class="form-control" type="text" id="id_perm" name="id_perm" value="" placeholder="idperm" required>
+            </div>
+            <div class="form-group col-md-4"></div>
+            <input class="btn btn-primary" type="button" id="buscar" name="buscar" value=" Buscar">
+        </div>
+    </form>
+</div>
+
+<div id="resposta" class="">
+</div>
+{% endblock %}
+
+
+{% block script %}
+        {% load static %}
+        <script src="{%  static 'portal/js/pdm_response.js' %}" type="text/javascript"></script>
+{% endblock %}

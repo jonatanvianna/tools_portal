@@ -1,0 +1,53 @@
+
+table#diretiva-table {
+   font-size: 1em;
+   font-weight: bold;
+
+}
+
+table#diretiva-table tr.primary{
+    background-color: hsl(143, 100%, 54%);
+    cursor: pointer;
+}
+
+table#diretiva-table tr.primary:hover {
+  background-color: hsl(143, 100%, 44%);
+  cursor: pointer;
+}
+
+
+table#diretiva-table tr.danger{
+    background-color: hsl(0, 100%, 61%);
+    cursor: pointer;
+}
+
+
+table#diretiva-table tr.danger:hover {
+  background-color: hsl(360, 91%, 55%);
+  cursor: pointer;
+}
+
+table#diretiva-table td#icon, td#data_abertura, td#ticket{
+   text-align: center;
+}
+
+
+div#footer-modal-diretiva{
+  display: inline-block;
+}
+
+div#footer-modal-diretiva  button#btn-editar{
+  float: right;
+  margin-left: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+

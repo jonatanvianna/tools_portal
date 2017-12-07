@@ -1,0 +1,26 @@
+html {
+    position: relative;
+    /*background-color: #088A29;*/
+}
+
+#body-login {
+    position: relative;
+    background-color: orange;
+}
+
+.login-center {
+    padding: 10px;
+}
+
+@media (min-width: 768px) {
+    .login-center {
+        margin-top: 200px;
+    }
+
+.custom-icons {
+    color: orange;
+}
+
+#custom-nav {
+    background-color: #f5f5f5;
+}

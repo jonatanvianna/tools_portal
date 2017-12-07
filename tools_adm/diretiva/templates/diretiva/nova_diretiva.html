@@ -1,0 +1,36 @@
+{% extends "portal/base.html" %}
+{% block content %}
+<div class="container">
+   {% if is_valid %}
+      <div class="alert alert-success" role="alert">
+         Diretiva submetida com sucesso.
+      </div>
+   {% endif %}
+   <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+         {{ field.label }}
+         {{ field }}
+
+         {% if field.errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for error in field.errors %}
+
+               {{error}}
+
+            {% endfor %}
+            </div>
+         {% endif %}
+
+      <small id="ticketHelpBlock" class="form-text text-muted">
+         {{ field.help_text}}
+      </small>
+      {% endfor %}
+      <br />
+      <button type="submit" class="btn btn-success">Submeter</button>
+   </form>
+</div>
+{% endblock %}
+
+
+

@@ -1,0 +1,5 @@
+*.pyc
+
+# .idea Pycharm confs Folder
+.idea/*
+

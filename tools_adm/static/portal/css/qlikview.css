@@ -1,0 +1,16 @@
+#lista-de-arquivos {
+    margin-top: 40px;
+}
+
+.invisivel {
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+.remover-item:hover {
+    color: red;
+    cursor: pointer;
+}
+.ajuste-btn{
+    border-style: none !important;
+}

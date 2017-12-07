@@ -1,0 +1,56 @@
+/*tela de login*/
+
+body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #F8F8F8;
+}
+
+.login-space {
+    margin-top: 150px;
+    padding-top: 30px;
+    text-align: center;
+    background-color: white;
+    padding-bottom: 40px;
+    align-content: center !important;
+    border-radius: 8px;
+    box-shadow: 5px 5px 3px #888888;
+
+}
+
+input {
+    border-radius: 0px !important;
+    border: none !important;
+    border-bottom: 2px solid #ff9801 !important;
+    background-color: transparent !important;
+    text-align: center;
+    width: 80% !important;
+    margin: 0 auto;
+}
+
+#login-portal {
+    color: #007bff !important;
+}
+
+#icone img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+}
+
+.logar-zyb {
+        padding-left: 40px !important ;
+        padding-right: 40px !important;
+        background-color: #ff9801 !important;
+        border-color: #ff9801 !important;
+        color: white;
+}
+
+@media screen and (max-width: 480px){
+    .login-space {
+        margin-top: 20px;
+        padding: 15px;
+    }
+}

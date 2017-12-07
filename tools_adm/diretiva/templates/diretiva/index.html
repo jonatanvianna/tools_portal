@@ -1,0 +1,129 @@
+{% extends "portal/base.html" %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/diretivas/">Diretivas</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/diretivas/create/">Nova</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link" href="/diretivas/all/">Todas</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="/diretivas/abertas/">Abertas</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="/diretivas/fechadas/">Fechadas</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Encontre uma Diretiva">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+    </form>
+  </div>
+</nav>
+
+   <table id="diretiva-table" class="table table-responsive table-hover table-bordered">
+      <thead class="thead-inverse">
+         <tr>
+            <th>STATUS</th>
+            <th>DATA</th>
+            <th>TICKET</th>
+            <th>DESCRIÇÃO</th>
+         </tr>
+      </thead>
+      <tbody>
+      {% for diretiva in diretivas%}
+         {% if diretiva.status %}
+            <tr id="id_diretiva"
+                class="primary"
+                data-id="{{diretiva.id}}"
+                data-status="Fechada"
+                data-date_entry="{{diretiva.date_entry|date:'d/m H:i'}}"
+                data-main_ticket="{{diretiva.main_ticket}}"
+                data-product="{{diretiva.product}}"
+                data-description="{{diretiva.description}}"
+                data-date_update="{{diretiva.date_update|date:'d/m H:i'}}"
+                data-date_closed="{{diretiva.date_closed|date:'d/m H:i'}}"
+                data-toggle="modal"
+                data-target="#exampleModal">
+         {% else %}
+            <tr id="id_diretiva"
+                class="danger"
+                data-id="{{diretiva.id}}"
+                data-status="Aberta"
+                data-date_entry="{{diretiva.date_entry|date:'d/m H:i'}}"
+                data-main_ticket="{{diretiva.main_ticket|stringformat:'02d'}}"
+                data-product="{{diretiva.product}}"
+                data-description="{{diretiva.description}}"
+                data-date_update="{{diretiva.date_update|date:'d/m H:i'}}"
+                data-date_closed="{{diretiva.date_closed|date:'d/m H:i'}}"
+                data-toggle="modal"
+                data-target="#exampleModal">
+         {% endif %}
+		      <td id="icon">
+               {% if diretiva.status %}
+                  <i class="fa fa-check-circle-o  fa-2x" aria-hidden="true"></i>
+               {%else%}
+                  <i class="fa fa-times-circle-o  fa-2x" aria-hidden="true"></i>
+               {% endif %}
+            </td>
+		      <td id="data_abertura">{{diretiva.date_entry|date:"d/m"}}&nbsp;{{diretiva.date_entry|date:"H:i"}}</td>
+
+		      <td id="ticket">{{diretiva.main_ticket}}</td>
+		      <td>
+               {% if diretiva.status %}
+                  [RESOLVIDO]
+               {%endif%}
+                  [{{diretiva.product|upper}}]&nbsp;-&nbsp;{{diretiva.description}}
+            </td>
+	      </tr>
+      {% endfor %}
+      </tbody>
+   </table>
+
+
+   <nav aria-label="diretiva-navigation">
+     <ul class="pagination justify-content-center">
+        {% if diretivas.has_previous %}
+         <li class="page-item"><a class="page-link" href="?page={{diretivas.previous_page_number}}">Anterior</a></li>
+        {% endif %}
+        {% if diretivas.number %}
+            <li class="page-item"><a class="page-link" href="#">Page {{diretivas.number}} of {{diretivas.paginator.num_pages}}</a></li>
+        {% endif %}
+        {% if diretivas.has_next %}
+       <li class="page-item"><a class="page-link" href="?page={{diretivas.next_page_number}}">Próxima</a></li>
+        {% endif %}
+     </ul>
+   </nav>
+
+
+   <div id="loadModal">
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Detalhe da Diretiva</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+
+               </div>
+               <div id="footer-modal-diretiva" class="modal-footer">
+
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+{% endblock %}

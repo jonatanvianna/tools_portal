@@ -1,0 +1,5 @@
+Fabric
+django
+sqlite3
+mysqlclient
+python-ldap

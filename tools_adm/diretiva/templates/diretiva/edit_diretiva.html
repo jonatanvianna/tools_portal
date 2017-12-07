@@ -1,0 +1,33 @@
+{% extends "portal/base.html" %}
+{% block content %}
+
+<div class="container">
+<h4>Editar Diretiva</h4>
+   <form action="..create/" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+         <label for="ticket">Ticket Principal</label>
+         <input type="text" class="form-control" id="ticket" name="ticket" value="{{form.main_ticket}}" placeholder="Ex.: 278596" />
+            <small id="ticketHelpBlock" class="form-text text-muted">
+               Número do Ticket principal
+            </small>
+         <label for="product">Produto</label>
+         <input type="text" class="form-control" id="product" name="product" value="{{form.product}}" placeholder="Ex.: Central" />
+            <small id="productHelpBlock" class="form-text text-muted">
+               Adicione uma informação sucinta como email, app1, suat ou telefonia, por exemplo.
+            </small>
+         <br />
+         <label for="description">Descrição</label>
+         <textarea class="form-control" id="description" name="description" rows="5" placeholder="...">{{form.description}}</textarea>
+            <small id="descriptionHelpBlock" class="form-text text-muted">
+               Descrição da diretiva. Ex.: Problemas com email, não escalonar. Realizar investigação e repassar ao N2.
+            </small>
+         <br />
+         <button type="submit" class="btn btn-success">Submeter</button>
+      </div>
+   </form>
+</div>
+{% endblock %}
+
+
+
