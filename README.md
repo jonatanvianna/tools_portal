@@ -6,19 +6,19 @@ Aplicação que oferece uma ferramenta de diretivas para comunicação de direti
 #### Para rodar localmente 
 
 ```
-git clone https://github.com/jonatanvianna/tools_portal.git
+$ git clone https://github.com/jonatanvianna/tools_portal.git
 
-cd tools_portal
+$ cd tools_portal
 
-python -m venv env
+$ python -m venv env
 
-source env/bin/activate
+$ source env/bin/activate
 
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 
-cd src/
+$ cd src/
 
-python manage.py runserver
+$ python manage.py runserver
 
 ```
 
@@ -28,7 +28,7 @@ O usuário administrator padrão é ```admin``` e a senha ```djangoadmin```
 
 Ou é possível criar seu próprio superuser, basta rodar o comando abaixo e seguir os passos para configurar.
 
-```python manage.py createsuperuser```
+```$ python manage.py createsuperuser```
 
 
 ##### Dados de exemplo
