@@ -1,16 +1,2 @@
-asn1crypto==0.23.0
-bcrypt==3.1.4
-cffi==1.11.2
-configparser==3.5.0
-cryptography==2.1.4
 Django==1.11
-Fabric==1.14.0
-idna==2.6
-ldap==1.0.2
-ldap3==2.4
-paramiko==2.4.0
-pyasn1==0.4.2
-pycparser==2.18
-PyNaCl==1.2.1
-pytz==2017.3
-six==1.11.0
+pytz==2018.4
