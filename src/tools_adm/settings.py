@@ -92,9 +92,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'portal',
-    'pdm',
+    # 'pdm',
     'diretiva',
-    'qlikviewPkg',
 ]
 
 MIDDLEWARE = [

@@ -1,7 +1,5 @@
 from django.conf.urls import url
-
 from . import views
-
 urlpatterns = [
     url(r'diretivas/$', views.home, name='diretiva_home'),
     url(r'diretivas/abertas/$', views.get_abertas, name='diretiva_abertas'),
@@ -12,5 +10,3 @@ urlpatterns = [
     url(r'diretivas/close/$', views.close_diretiva, name='diretiva_close'),
     url(r'diretivas/update/$', views.update, name='diretiva_update')
 ]
-
-

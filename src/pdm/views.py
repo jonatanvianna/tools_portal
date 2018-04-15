@@ -6,20 +6,20 @@ from django.contrib.auth.decorators import login_required
 import subprocess
 
 
-@login_required
+#@login_required
 def home(request):
     return render(request, 'pdm/index.html',  {'username':request.user})
 
 
-@csrf_exempt
+#@csrf_exempt
 def busca_log(request):
     context = {'user_idc': request.user}
 
-    id_perm = request.POST.get('id_perm')
+    id_ = request.POST.get('id_')
     user = request.POST.get('user')
 
     list_log = []
-    subprocess.call(['perda_de_mensagens', id_perm, user])
+    subprocess.call(['perda_de_mensagens', id_, user])
     with open('/tmp/' + user + '_relatorio_final.txt') as r:
         for line in r:
             list_log.append(line)

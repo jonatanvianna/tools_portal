@@ -20,6 +20,5 @@ urlpatterns = [
     url(r'^', include('diretiva.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^pdm/', include('pdm.urls')),
-    url(r'^qlikviewPkg', include('qlikviewPkg.urls')),
     url(r'^', include('portal.urls')),
 ]

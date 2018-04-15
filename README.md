@@ -1,7 +1,4 @@
-### #TODO - DSV
+## Diretiva App
 
-- Tratar se o dict vem None da @task/execute na pdm/view 
-- ~~Integração com LDAP~~
-- ~~Tela de Login~~
-- ~~Menu para o Portal~~
-- ~~Tratar o front com um framework CSS a escolher~~
+Aplicação que oferece uma ferramenta de diretivas para comunicação de diretivas temporárias entre equipes de forma assíncrona.
+
