@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'storages',
     'portal',
     'diretiva',
+    'pdm',
 ]
 
 MIDDLEWARE = [
