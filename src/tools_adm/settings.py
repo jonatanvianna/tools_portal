@@ -11,60 +11,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-#import ldap
-#from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
+from socket import gethostname
 
-
-
-# Baseline configuration.
-# AUTH_LDAP_SERVER_URI = "ldap://zyb.com"
-#
-# AUTH_LDAP_BIND_DN = "CN=ldapproxy,CN=Users,DC=idc,DC=tpn,DC=zyb,DC=com"
-# AUTH_LDAP_BIND_PASSWORD = ""
-# AUTH_LDAP_USER_SEARCH = LDAPSearch("OU=zyb,DC=idc,DC=tpn,DC=zyb,DC=com", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
-#
-# # or perhaps:
-# # AUTH_LDAP_USER_DN_TEMPLATE = "uid=%(user)s,ou=users,dc=example,dc=com"
-#
-# # Set up the basic group parameters.
-# AUTH_LDAP_GROUP_SEARCH = LDAPSearch("CN=core,OU=Groups,OU=zyb,DC=idc,DC=tpn,DC=zyb,DC=com",
-#     ldap.SCOPE_SUBTREE, "(objectClass=groupOfNames)"
-# )
-# AUTH_LDAP_GROUP_TYPE = GroupOfNamesType()
-#
-#
-# # Simple group restrictions
-# #AUTH_LDAP_REQUIRE_GROUP = "cn=enabled,ou=django,ou=groups,dc=example,dc=com"
-# #AUTH_LDAP_DENY_GROUP = "cn=disabled,ou=django,ou=groups,dc=example,dc=com"
-#
-# #Populate the Django user from the LDAP directory.
-# AUTH_LDAP_USER_ATTR_MAP = {
-#     "first_name": "givenName",
-#     "last_name": "sn",
-#     "email": "mail"
-# }
-#
-# AUTH_LDAP_USER_FLAGS_BY_GROUP = {
-#    # "is_active": "cn=active,ou=django,ou=groups,dc=example,dc=com",
-#    # "is_staff": "CN=core,OU=Groups,OU=zyb,DC=idc,DC=tpn,DC=zyb,DC=com",
-#    # "is_superuser": "cn=superuser,ou=django,ou=groups,dc=example,dc=com"
-# }
-#
-# # Use LDAP group membership to calculate group permissions.
-# AUTH_LDAP_FIND_GROUP_PERMS = True
-#
-# # Cache group memberships for an hour to minimize LDAP traffic
-# AUTH_LDAP_CACHE_GROUPS = True
-# AUTH_LDAP_GROUP_CACHE_TIMEOUT = 3600
-#
-# # Keep ModelBackend around for per-user permissions and maybe a local
-# # superuser.
-# AUTHENTICATION_BACKENDS = (
-#     'django_auth_ldap.backend.LDAPBackend',
-#     'django.contrib.auth.backends.ModelBackend',
-# )
-#
-#------------------------------------------------
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -77,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'q_@+oxyqk*jk=6+(ydv#tsdq(-x1vx!(e7k(653)$=_6!&t_zm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -92,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'portal',
-    # 'pdm',
+    # for AWS S3 Storage
+    'storages',
     'diretiva',
 ]
 
@@ -129,14 +78,37 @@ WSGI_APPLICATION = 'tools_adm.wsgi.application'
 #Database
 #https://docs.djangoproject.com/en/1.11/ref/settings/databases
 
-
 # sqlite local
-DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.sqlite3',
-       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-   }
-}
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+# }
+
+
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
+    }
+else:
+    DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': 'tools-portal',
+           'USER': 'postgres',
+           'PASSWORD': 'Jojo3131#',
+           'HOST': '127.0.0.1',
+           'PORT': '5432',
+       }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -179,3 +151,47 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+
+
+if gethostname() == 'sagan':
+
+    print('# LOCAL')
+    print(os.path.join(BASE_DIR))
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'core', 'media')
+    MEDIA_URL = '/media/'
+    print(MEDIA_ROOT)
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'core', 'static')
+    STATIC_URL = '/static/'
+
+else:
+    # print('# AWS')
+    AWS_S3_OBJECT_PARAMETERS = {
+        'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+        'CacheControl': 'max-age=94608000',
+    }
+
+    # S3 AWS Storage for statics
+    AWS_STORAGE_BUCKET_NAME = 'tools-portal-dev'
+    AWS_S3_REGION_NAME = 'us-east-1'  # US East Virginia
+
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+
+    # Tell django-storages the domain to use to refer to static files.
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+    # Tell the staticfiles app to use S3Boto3 storage when writing the collected static files (when
+    # you run `collectstatic`).
+    # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+    STATICFILES_LOCATION = 'static'
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+
+    MEDIAFILES_LOCATION = 'media'
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
+
+
+
