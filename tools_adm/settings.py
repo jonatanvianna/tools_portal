@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from socket import gethostname
+from decouple import config
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -102,7 +103,7 @@ else:
     DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-           'NAME': 'tools-portal',
+           'NAME': 'toolsportal',
            'USER': 'postgres',
            'PASSWORD': 'Jojo3131#',
            'HOST': '127.0.0.1',
@@ -152,21 +153,19 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-
-
 if gethostname() == 'sagan':
 
     print('# LOCAL')
     print(os.path.join(BASE_DIR))
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'core', 'media')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'diretiva', 'media')
     MEDIA_URL = '/media/'
     print(MEDIA_ROOT)
 
-    STATIC_ROOT = os.path.join(BASE_DIR, 'core', 'static')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'diretiva', 'static')
     STATIC_URL = '/static/'
 
 else:
-    # print('# AWS')
+    print('# AWS')
     AWS_S3_OBJECT_PARAMETERS = {
         'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
         'CacheControl': 'max-age=94608000',
@@ -176,8 +175,17 @@ else:
     AWS_STORAGE_BUCKET_NAME = 'tools-portal-dev'
     AWS_S3_REGION_NAME = 'us-east-1'  # US East Virginia
 
-    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+    # put in in .env
+    # AWS_ACCESS_KEY_ID = AKIAJ4GUE7O2FLGWQYEQ
+    # AWS_SECRET_ACCESS_KEY = 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
+
+    # temporary
+    AWS_ACCESS_KEY_ID = 'AKIAJ4GUE7O2FLGWQYEQ'
+    AWS_SECRET_ACCESS_KEY = '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'
+
+    # go to  production
+    # AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    # AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 
     # Tell django-storages the domain to use to refer to static files.
     AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
